@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SporTEC</string>
+    <string name="product1">Abrigo manga larga color negro</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="main_screen">Principal</string>
+    <string name="sport_screen">Deportes</string>
+    <string name="history_screen">Historial</string>
+    <string name="challenge_screen">Retos</string>
+    <string name="logout">Salir</string>
+    <string name="team_screen">Mi Equipo</string>
+</resources>

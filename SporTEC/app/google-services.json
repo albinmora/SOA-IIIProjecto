@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "263909302484",
+    "firebase_url": "https://sportec-c58ca.firebaseio.com",
+    "project_id": "sportec-c58ca",
+    "storage_bucket": "sportec-c58ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263909302484:android:6c1399e5f7c14623",
+        "android_client_info": {
+          "package_name": "com.example.albin.sportec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263909302484-2rc11553ghrhkh4h0ierouhjpo1f747c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.albin.sportec",
+            "certificate_hash": "000d31a87c9e8d0159edae9be9664612309501ef"
+          }
+        },
+        {
+          "client_id": "263909302484-lm7vppn20g6arc0ccarbbqtvbgpjugje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7aT7L1DWMyFSuv9k9rYfwApAh_rlfHbQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263909302484-lm7vppn20g6arc0ccarbbqtvbgpjugje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
