@@ -3,20 +3,19 @@ package com.example.albin.sportec.Model;
 public class News{
 
     // Members variables
-    private Long id;
+    private String _id;
     private String title;
     private String date;
     private String body;
     private String image;
     private int dayNews;
+    private String _idSport;
 
     //Getters
 
     public int getDayNews() { return dayNews; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getId() { return _id; }
 
     public String getImage() {
         return image;
@@ -34,9 +33,17 @@ public class News{
         return body;
     }
 
+    public String get_idSport() {
+        return _idSport;
+    }
+
+    public void set_idSport(String _idSport) {
+        this._idSport = _idSport;
+    }
+
     //Constructor
-    public News(Long pId,int pDayNews,String pTitle, String pDate, String pDody, String pImage){
-        this.id = pId;
+    public News(String pId,int pDayNews,String pTitle, String pDate, String pDody, String pImage){
+        this._id = pId;
         this.dayNews = pDayNews;
         this.title = pTitle;
         this.date = pDate;
@@ -47,4 +54,6 @@ public class News{
     public News(){
 
     }
+
+
 }

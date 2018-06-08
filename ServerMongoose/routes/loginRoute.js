@@ -33,12 +33,15 @@ router.post('/register',(req, res) => {
       Users.findOne(req.body)
         .exec()
         .then(doc => {
+          console.log(req.body)
           if (doc) {
+            console.log("Fine")
             res.status(200).json({
               status:1,
               message: "Find a coincidence",
               User: doc});
           } else {
+            console.log("Bad")
             res
               .status(404)
               .json({

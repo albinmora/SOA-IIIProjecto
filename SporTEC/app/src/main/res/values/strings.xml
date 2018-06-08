@@ -11,4 +11,17 @@
     <string name="challenge_screen">Retos</string>
     <string name="logout">Salir</string>
     <string name="team_screen">Mi Equipo</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Correo o Usuario</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="repeat_password">Repita su contraseña</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_register"><u>O Registrarse</u> </string>
+    <string name="error_invalid_email">Este usuario es invalido</string>
+    <string name="error_invalid_password">Esta contraseña es demasiado pequeña</string>
+    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="btn_register">Registrarse</string>
 </resources>

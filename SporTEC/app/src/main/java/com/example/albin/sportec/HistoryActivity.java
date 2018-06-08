@@ -66,9 +66,9 @@ public class HistoryActivity extends AppCompatActivity {
                 GenericTypeIndicator<List<History>> genericTypeIndicator = new GenericTypeIndicator<List<History>>() {
                 };
 
-                history_list = dataSnapshot.getValue(genericTypeIndicator);
+                mHistoryList = dataSnapshot.getValue(genericTypeIndicator);
 
-                HistoryListAdapter adapter = new HistoryListAdapter(HistoryActivity.this, R.layout.activity_history_item, history_list);
+                HistoryListAdapter adapter = new HistoryListAdapter(HistoryActivity.this, R.layout.activity_history_item, mHistoryList);
                 lv.setAdapter(adapter);
             }
 

@@ -14,19 +14,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.albin.sportec.Model.NavBarItem;
 import com.example.albin.sportec.Model.News;
+import com.example.albin.sportec.Model.ResponseNews;
+import com.example.albin.sportec.Model.ResponseSport;
+import com.example.albin.sportec.Model.Sport;
+import com.example.albin.sportec.networking.RestClientNews;
+import com.example.albin.sportec.networking.RestClientSport;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.async.future.FutureCallback;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -38,10 +50,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,17 +64,17 @@ public class MainActivity extends AppCompatActivity
 
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    private ListView lv;
-    private static final String TAG = "MyActivity";
 
+    private static final String TAG = "MyActivity";
     public static final String PRODUCT_ID = "PRODUCT_ID";
     public static final String SEARCH = "SEARCH";
-    private Long news_id;
+    private String mNews_id;
+    private ListView mListView;
     private List<News> newsList;
     private DrawerLayout drawer;
-    private TextView placeHolderText;
-    private MenuItem accountMenu;
-    private ImageView dayNewsImage;
+    private ImageView mDayNewsImage;
+    private List<News> mNews;
+    private Gson mGson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +84,10 @@ public class MainActivity extends AppCompatActivity
         DatabaseReference myRef = database.getReference("News");
 
         //NewsListAdapter adapter = new NewsListAdapter(this, R.layout.list_item, products);
-        lv = (ListView) findViewById(R.id.listView);
+        mListView = (ListView) findViewById(R.id.listView);
         //lv.setAdapter(adapter);
 
-        dayNewsImage = (ImageView) findViewById(R.id.imgDayNews);
+        mDayNewsImage = (ImageView) findViewById(R.id.imgDayNews);
 
         String id = myRef.push().getKey();
 
@@ -90,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, NewsDetailActivity.class);
@@ -103,16 +117,58 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        dayNewsImage.setOnClickListener(new View.OnClickListener() {
+        mDayNewsImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewsDetailActivity.class);
-                intent.putExtra(PRODUCT_ID, news_id);
+                intent.putExtra(PRODUCT_ID, mNews_id);
                 startActivity(intent);
             }
         });
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        RestClientNews
+                .with(getApplicationContext())
+                .getNews(new FutureCallback<JsonObject>() {
+
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        mGson = new Gson();
+                        ResponseNews mNews = mGson.fromJson(result.toString(), ResponseNews.class);
+                        newsList = mNews.getNew();
+                        NewsListAdapter adapter = new NewsListAdapter(MainActivity.this, R.layout.list_item, newsList);
+                        mListView.setAdapter(adapter);
+                    }
+                });
+
+        RestClientNews
+                .with(getApplicationContext())
+                .getDayNew(new FutureCallback<JsonObject>() {
+
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        mGson = new Gson();
+                        ResponseNews mNews = mGson.fromJson(result.toString(), ResponseNews.class);
+
+                        News dayNews = mNews.getNewO();
+                        Bitmap bitmap = getBitmapFromAsset(dayNews.getImage());
+                        mDayNewsImage.setImageBitmap(bitmap);
+
+                        TextView title = (TextView) findViewById(R.id.textTitleP);
+                        title.setText(dayNews.getTitle());
+
+                        mNews_id = dayNews.getId();
+
+
+
+                        //NewsListAdapter adapter = new NewsListAdapter(MainActivity.this, R.layout.list_item, mNews.getNew());
+                        //mListView.setAdapter(adapter);
+                    }
+                });
+
+
+
+
+       /** myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -133,8 +189,8 @@ public class MainActivity extends AppCompatActivity
                 news_id = dayNews.getId();
 
 
-                NewsListAdapter adapter = new NewsListAdapter(MainActivity.this, R.layout.list_item, getOtherNews(newsList));
-                lv.setAdapter(adapter);
+                NewsListAdapter adapter = new NewsListAdapter(MainActivity.this, R.layout.list_item, newsList);
+                mListView.setAdapter(adapter);
             }
 
             @Override
@@ -142,7 +198,7 @@ public class MainActivity extends AppCompatActivity
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
+        });**/
 
 
         inflateViews();
