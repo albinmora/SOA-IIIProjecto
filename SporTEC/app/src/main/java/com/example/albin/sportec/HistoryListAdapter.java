@@ -1,21 +1,14 @@
 package com.example.albin.sportec;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.albin.sportec.Model.History;
-import com.example.albin.sportec.Model.News;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class HistoryListAdapter extends ArrayAdapter<History> {
@@ -34,7 +27,7 @@ public class HistoryListAdapter extends ArrayAdapter<History> {
             convertView = LayoutInflater.from(getContext()).
                     inflate(R.layout.activity_history_item, parent, false);
         }
-        History histN= hist.get(position);
+        History histN = hist.get(position);
         TextView nameText = (TextView) convertView.findViewById(R.id.txtDate);
         nameText.setText(histN.getDate());
         TextView priceText = (TextView) convertView.findViewById(R.id.txtHistoryDescription);

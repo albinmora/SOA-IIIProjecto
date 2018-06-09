@@ -8,24 +8,24 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.albin.sportec.Model.Sports;
+import com.example.albin.sportec.Model.Sport;
 
 import java.util.List;
 
 public class GridViewAdapter extends BaseAdapter {
-    private LayoutInflater layoutinflater;
-    private List<Sports> listStorage;
-    private Context context;
+    private LayoutInflater mLayoutinflater;
+    private List<Sport> mListStorage;
+    private Context mContext;
 
-    public GridViewAdapter(Context context, List<Sports> customizedListView) {
-        this.context = context;
-        layoutinflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        listStorage = customizedListView;
+    public GridViewAdapter(Context context, List<Sport> customizedListView) {
+        this.mContext = context;
+        mLayoutinflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mListStorage = customizedListView;
     }
 
     @Override
     public int getCount() {
-        return listStorage.size();
+        return mListStorage.size();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class GridViewAdapter extends BaseAdapter {
         ViewHolder listViewHolder;
         if (convertView == null) {
             listViewHolder = new ViewHolder();
-            convertView = layoutinflater.inflate(R.layout.grid_item, parent, false);
+            convertView = mLayoutinflater.inflate(R.layout.grid_item, parent, false);
             listViewHolder.textInListView = (TextView) convertView.findViewById(R.id.textView);
             listViewHolder.imageInListView = (ImageView) convertView.findViewById(R.id.imageView);
             convertView.setTag(listViewHolder);
@@ -52,8 +52,9 @@ public class GridViewAdapter extends BaseAdapter {
             listViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        listViewHolder.textInListView.setText(listStorage.get(position).getSport());
-        int imageResourceId = this.context.getResources().getIdentifier(listStorage.get(position).getImage(), "drawable", this.context.getPackageName());
+        listViewHolder.textInListView.setText(mListStorage.get(position).getSport());
+        String imageName = mListStorage.get(position).getSport();
+        int imageResourceId = this.mContext.getResources().getIdentifier(imageName, "drawable", this.mContext.getPackageName());
         listViewHolder.imageInListView.setImageResource(imageResourceId);
 
         return convertView;

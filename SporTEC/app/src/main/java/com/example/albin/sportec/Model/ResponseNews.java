@@ -14,7 +14,8 @@ public class ResponseNews {
         this.status = status;
         this.message = message;
     }
-    public ResponseNews(){
+
+    public ResponseNews() {
 
     }
 

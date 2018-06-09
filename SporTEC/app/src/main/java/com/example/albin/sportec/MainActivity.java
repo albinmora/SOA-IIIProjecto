@@ -4,70 +4,45 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.albin.sportec.Model.NavBarItem;
 import com.example.albin.sportec.Model.News;
 import com.example.albin.sportec.Model.ResponseNews;
-import com.example.albin.sportec.Model.ResponseSport;
-import com.example.albin.sportec.Model.Sport;
 import com.example.albin.sportec.networking.RestClientNews;
-import com.example.albin.sportec.networking.RestClientSport;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
-
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
-
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    static FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-
-    private static final String TAG = "MyActivity";
     public static final String PRODUCT_ID = "PRODUCT_ID";
     public static final String SEARCH = "SEARCH";
+    private static final String TAG = "MyActivity";
+    static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private String mNews_id;
     private ListView mListView;
     private List<News> newsList;
@@ -81,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseReference myRef = database.getReference("News");
+        //DatabaseReference myRef = database.getReference("News");
 
         //NewsListAdapter adapter = new NewsListAdapter(this, R.layout.list_item, products);
         mListView = (ListView) findViewById(R.id.listView);
@@ -89,7 +64,7 @@ public class MainActivity extends AppCompatActivity
 
         mDayNewsImage = (ImageView) findViewById(R.id.imgDayNews);
 
-        String id = myRef.push().getKey();
+        //String id = myRef.push().getKey();
 
         Button btnBuscar = (Button) findViewById(R.id.btnBuscar);
 
@@ -158,47 +133,8 @@ public class MainActivity extends AppCompatActivity
 
                         mNews_id = dayNews.getId();
 
-
-
-                        //NewsListAdapter adapter = new NewsListAdapter(MainActivity.this, R.layout.list_item, mNews.getNew());
-                        //mListView.setAdapter(adapter);
                     }
                 });
-
-
-
-
-       /** myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-
-                GenericTypeIndicator<List<News>> genericTypeIndicator = new GenericTypeIndicator<List<News>>() {
-                };
-
-                newsList = dataSnapshot.getValue(genericTypeIndicator);
-
-                News dayNews = getDayNew(newsList);
-                Bitmap bitmap = getBitmapFromAsset(dayNews.getImage());
-                dayNewsImage.setImageBitmap(bitmap);
-
-                TextView title = (TextView) findViewById(R.id.textTitleP);
-                title.setText(dayNews.getTitle());
-
-                news_id = dayNews.getId();
-
-
-                NewsListAdapter adapter = new NewsListAdapter(MainActivity.this, R.layout.list_item, newsList);
-                mListView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });**/
 
 
         inflateViews();

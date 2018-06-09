@@ -60,6 +60,33 @@ const News = require("../models/news");
         });
   });
 
+  routerN.get('/getAllNews',(req, res) => {
+    //res.send(req.body)
+      News.find()
+        .exec()
+        .then(doc => {
+          if (doc) {
+            console.log("Fine")
+            res.status(200).json({
+              status:1,
+              message: "All news",
+              New: doc});
+          } else {
+            console.log("Bad")
+            res
+              .status(404)
+              .json({
+                status:0,
+                message: "No News" });
+          }
+        })
+        .catch(err => {
+          res.status(500).json({
+            status:0,
+            error: err });
+        });
+  });
+
   routerN.get('/getNew',(req, res) => {
     //res.send(req.body)
     console.log(req.query.id);
@@ -85,6 +112,8 @@ const News = require("../models/news");
             error: err });
         });
   });
+
+
 
   routerN.post('/addNew',(req, res) => {
     const news = new News({

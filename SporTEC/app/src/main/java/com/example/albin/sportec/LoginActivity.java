@@ -1,9 +1,8 @@
 package com.example.albin.sportec;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private Gson gson;
     private TextView mStatusLogin;
     private TextView mLinkResgiter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
 
 
-
         Button mLoginButton = (Button) findViewById(R.id.login_button);
 
         mLoginButton.setOnClickListener(new OnClickListener() {
@@ -51,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = mEmailView.getText().toString();
                 String password = mPasswordView.getText().toString();
-                Login loginModel = new Login(null,email,password);
+                Login loginModel = new Login(null, email, password);
                 //LoginDBAccess db = new LoginDBAccess(loginModel);
                 //db.execute("");
 
@@ -62,14 +61,14 @@ public class LoginActivity extends AppCompatActivity {
                             public void onCompleted(Exception e, JsonObject result) {
                                 gson = new Gson();
                                 ResponseUser response = gson.fromJson(result.toString(), ResponseUser.class);
-                                if(response.getStatus() == 1){
+                                if (response.getStatus() == 1) {
                                     Session.setmId(response.getUser().get_id());
                                     Session.setmUser(response.getUser().getUser());
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                }else{
-                                    mStatusLogin = (TextView)findViewById(R.id.txtStatusLogin);
+                                } else {
+                                    mStatusLogin = (TextView) findViewById(R.id.txtStatusLogin);
                                     mStatusLogin.setText(response.getMessage());
                                 }
                             }
@@ -89,9 +88,6 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
 
 
     }

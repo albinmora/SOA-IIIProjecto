@@ -4,7 +4,7 @@ public class UserSport {
     String _idUser;
     String _idSport;
 
-    public UserSport(){
+    public UserSport() {
 
     }
 

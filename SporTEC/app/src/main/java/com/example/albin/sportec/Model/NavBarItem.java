@@ -15,20 +15,21 @@ public enum NavBarItem {
 
 
     private int itemId;
+
     NavBarItem(int itemId) {
         this.itemId = itemId;
     }
 
-    public int getItemId() {
-        return itemId;
-    }
-
     public static NavBarItem fromViewId(int viewId) {
-        for(NavBarItem navBarItem : NavBarItem.values()) {
+        for (NavBarItem navBarItem : NavBarItem.values()) {
             if (navBarItem.getItemId() == viewId) {
                 return navBarItem;
             }
         }
         throw new IllegalStateException("Cannot find viewType");
+    }
+
+    public int getItemId() {
+        return itemId;
     }
 }

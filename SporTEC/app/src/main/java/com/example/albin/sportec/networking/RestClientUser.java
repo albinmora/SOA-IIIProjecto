@@ -18,23 +18,22 @@ import com.koushikdutta.ion.gson.GsonParser;
 
 public class RestClientUser {
 
+    private static final String SERVER = "http://172.18.172.185:4000";
     private Application mApplication;
-    private static final String SERVER = "http://172.18.138.42:4000";
-
-    public static RestClientUser with(Context application)
-    {
-        return new RestClientUser((Application) application);
-    }
 
     private RestClientUser(Application application) {
         this.mApplication = application;
+    }
+
+    public static RestClientUser with(Context application) {
+        return new RestClientUser((Application) application);
     }
 
     public void loginUser(Login pLogin, FutureCallback<JsonObject> callback) {
         Gson gson = new Gson();
         String json = gson.toJson(pLogin);
         GsonParser parser = new GsonArrayParser();
-        JsonObject gObject =  (JsonObject) new JsonParser().parse(json);
+        JsonObject gObject = (JsonObject) new JsonParser().parse(json);
         Ion.with(mApplication)
                 .load(SERVER + "/login/login")
                 .setJsonObjectBody(gObject)
@@ -47,7 +46,7 @@ public class RestClientUser {
         Gson gson = new Gson();
         String json = gson.toJson(pLogin);
         GsonParser parser = new GsonArrayParser();
-        JsonObject gObject =  (JsonObject) new JsonParser().parse(json);
+        JsonObject gObject = (JsonObject) new JsonParser().parse(json);
         Ion.with(mApplication)
                 .load(SERVER + "/login/register")
                 .setJsonObjectBody(gObject)

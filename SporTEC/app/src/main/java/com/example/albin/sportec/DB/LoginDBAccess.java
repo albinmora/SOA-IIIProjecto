@@ -1,29 +1,21 @@
 package com.example.albin.sportec.DB;
 
 import android.os.AsyncTask;
-import android.util.JsonReader;
 import android.util.Log;
 
 import com.example.albin.sportec.Model.Login;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import static android.content.ContentValues.TAG;
 
@@ -32,6 +24,7 @@ public class LoginDBAccess extends AsyncTask<String, Void, Void> {
     static Gson mGson = new Gson();
     JsonObject mJsonPost;
     String mResponse;
+
     public LoginDBAccess(Login pLogin){
 
         String jsonPost = mGson.toJson(pLogin);
